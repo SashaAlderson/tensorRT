@@ -757,6 +757,8 @@ void BuildOptions::parse(Arguments& arguments)
         shapesCalib = shapes;
     }
 
+    getAndDelOption(arguments, "--calib_imgs", calibration_path);
+
     std::string profilingVerbosityString;
     if (getAndDelOption(arguments, "--nvtxMode", profilingVerbosityString))
     {
@@ -1585,6 +1587,7 @@ void BuildOptions::help(std::ostream& os)
           "                                                    layerOutputTypes ::= layerName\":\"type"                                      "\n"
           "                                                    type ::= \"fp32\"|\"fp16\"|\"int32\"|\"int8\"[\"+\"type]"                     "\n"
           "  --calib=<file>              Read INT8 calibration cache file"                                                                   "\n"
+          "  --calib_imgs=<file>         Path to .txt with calibration images paths"                                                         "\n"
           "  --safe                      Enable build safety certified engine"                                                               "\n"
           "  --consistency               Perform consistency checking on safety certified engine"                                            "\n"
           "  --restricted                Enable safety scope checking with kSAFETY_SCOPE build flag"                                         "\n"

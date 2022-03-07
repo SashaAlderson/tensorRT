@@ -153,6 +153,7 @@ struct BuildOptions : public Options
     SparsityFlag sparsity{SparsityFlag::kDISABLE};
     nvinfer1::ProfilingVerbosity profilingVerbosity{nvinfer1::ProfilingVerbosity::kLAYER_NAMES_ONLY};
     std::string engine;
+    std::string calibration_path;
     std::string calibration;
     std::unordered_map<std::string, ShapeRange> shapes;
     std::unordered_map<std::string, ShapeRange> shapesCalib;

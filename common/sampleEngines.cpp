@@ -1054,8 +1054,7 @@ bool setupNetworkAndConfig(const BuildOptions& build, const SystemOptions& sys, 
         return false;
     };
 
-    // if (!hasQDQLayers(network) && (build.int8 || int8IO) && build.calibration.empty())
-    if (0)
+    if (!hasQDQLayers(network) && (build.int8 || int8IO) && build.calibration.empty() && build.calibration_path.empty())
     {   
         // Explicitly set int8 scales if no calibrator is provided and if I/O tensors use int8,
         // because auto calibration does not support this case.
@@ -1103,7 +1102,6 @@ bool setupNetworkAndConfig(const BuildOptions& build, const SystemOptions& sys, 
             SMP_RETVAL_IF_FALSE(
                 config.setCalibrationProfile(profileCalib), "Error in set calibration profile", false, err);
         }
-
         std::vector<int64_t> elemCount{};
         for (int i = 0; i < network.getNbInputs(); i++)
         {
@@ -1125,12 +1123,16 @@ bool setupNetworkAndConfig(const BuildOptions& build, const SystemOptions& sys, 
                 elemCount.push_back(volume(input->getDimensions()));
             }
         }
-
-        // config.setInt8Calibrator(new RndInt8Calibrator(1, elemCount, build.calibration, network, err));
-        std::cout << "Setting calibrator!!! \n";
-        nvinfer1::Int8EntropyCalibrator2 *calibrator = new nvinfer1::Int8EntropyCalibrator2( 1, 3, 640, 640, 1, "/home/alexander/Desktop/DeepStream-Yolo/calibration.txt", "/home/alexander/Desktop/DeepStream-Yolo/calib.table");
-        config.setInt8Calibrator(calibrator);
-        // config.setInt8Calibrator(new nvinfer1::Int8EntropyCalibrator2(calib_batch_size, m_InputC, m_InputH, m_InputW, m_LetterBox, calib_image_list, m_Int8CalibPath));
+  
+        if (!build.calibration_path.empty())
+        {
+            nvinfer1::Int8EntropyCalibrator2 *calibrator = new nvinfer1::Int8EntropyCalibrator2( 1, 3, 640, 640, 1, build.calibration_path, "/home/alexander/Desktop/DeepStream-Yolo/calib.table");
+            config.setInt8Calibrator(calibrator);
+        }
+        else 
+        {
+            config.setInt8Calibrator(new RndInt8Calibrator(1, elemCount, build.calibration, network, err));
+        }
     }
 
     if (build.directIO)
