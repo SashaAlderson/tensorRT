@@ -1,5 +1,5 @@
 # TensorRT
-New samples might be added in the future. All standard samples could be found in /usr/src/tensorrt/samples. As for now, you can calibrate your model with int8 precision using added option --calib-imgs with trtexec app.
+New samples might be added in the future. All standard samples could be found in /usr/src/tensorrt/samples. As for now, you can calibrate your model with int8 precision using added option --calib-imgs on trtexec app.
 ## Calibration
 Download images for calibration from coco val2017
 ```
