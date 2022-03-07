@@ -1126,7 +1126,7 @@ bool setupNetworkAndConfig(const BuildOptions& build, const SystemOptions& sys, 
   
         if (!build.calibration_path.empty())
         {
-            nvinfer1::Int8EntropyCalibrator2 *calibrator = new nvinfer1::Int8EntropyCalibrator2( 1, 3, 640, 640, 1, build.calibration_path, "/home/alexander/Desktop/DeepStream-Yolo/calib.table");
+            nvinfer1::Int8EntropyCalibrator2 *calibrator = new nvinfer1::Int8EntropyCalibrator2( 1, 3, 640, 640, 1, build.calibration_path, build.calibration);
             config.setInt8Calibrator(calibrator);
         }
         else 
