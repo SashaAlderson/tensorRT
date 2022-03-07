@@ -128,23 +128,23 @@ trtexec --loadEngine=g1.trt --batch=1 --streams=4
 trtexec --loadEngine=g2.trt --batch=2 --streams=2
 ```
 ### Example 7: Int8 calibration using ONNX model
-Download images for calibration from coco val2017
+Download images for calibration from coco val2017:
 ```
 wget http://images.cocodataset.org/zips/val2017.zip
 unzip val2017.zip
 rm val2017.zip
 ```
-Choose 1k images from dataset 
+Choose 1k images from dataset: 
 ```
 for jpg in $(ls -1 val2017/*.jpg | sort -R | head -1000); do \
     cp ${jpg} calibration/; \
 done
 ```
-Create the calibration.txt file with all selected images
+Create the calibration.txt file with all selected images:
 ```
 realpath calibration/*jpg > calibration.txt
 ```
-Now you can create model using calibration dataset.
+Now you can create model using calibration dataset:
 ```
 trtexec --int8 --onnx=model.onnx --saveEngine=int8_model.engine --calib_imgs=calibration.txt 
 ```
