@@ -167,12 +167,3 @@ The following resources provide more details about `trtexec`:
 
 For terms and conditions for use, reproduction, and distribution, see the [TensorRT Software License Agreement](https://docs.nvidia.com/deeplearning/sdk/tensorrt-sla/index.html)
 documentation.
-
-# Changelog
-
-April 2019
-This is the first release of this `README.md` file.
-
-# Known issues
-
-There are no known issues in this sample.
